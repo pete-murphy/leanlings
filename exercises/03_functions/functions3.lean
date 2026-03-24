@@ -22,8 +22,13 @@ def doubler : Nat → Nat := fun n => sorry
 -- Use `fun n => ...` to check if a number is zero
 def isZero : Nat → Bool := fun n => sorry
 
+-- Now use the `·` shorthand: (· + 1) means fun x => x + 1
+def tripler : Nat → Nat := sorry
+
 -- Don't change below this line!
 #guard doubler 5 == 10
 #guard doubler 0 == 0
 #guard isZero 0 == true
 #guard isZero 5 == false
+#guard tripler 3 == 9
+#guard tripler 0 == 0

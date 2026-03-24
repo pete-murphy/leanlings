@@ -21,7 +21,8 @@ def fullName (p : Person) : String := sorry
 
 def isAdult (p : Person) : Bool := sorry
 
--- Return a new Person with age incremented by 1
+-- Return a new Person with age incremented by 1.
+-- Use `{ p with ... }` to copy all fields except the one you change.
 def birthday (p : Person) : Person := sorry
 
 -- Don't change below this line!
