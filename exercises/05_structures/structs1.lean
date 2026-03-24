@@ -11,6 +11,9 @@
   Or with the anonymous constructor ⟨...⟩ (typed \langle and \rangle):
     (⟨1.0, 2.0⟩ : Point)
 
+  `deriving Repr` at the end lets you print values with `#eval`.
+  (You'll learn more about `deriving` when we cover type classes.)
+
   TODO: Create a Person named "Alice" who is 30 years old.
         Use either named fields or the anonymous constructor.
 -/

@@ -13,14 +13,14 @@
   TODO: Replace `sorry` with anonymous functions.
 -/
 
--- An anonymous function that doubles its input
-def doubler : Nat → Nat := sorry
+-- Use `fun n => ...` to write an anonymous function that doubles its input
+def doubler : Nat → Nat := fun n => sorry
 
 -- Note: Use `==` (not `=`) for boolean equality.
 -- `==` returns Bool, while `=` creates a Prop (proposition).
 
--- An anonymous function that checks if a number is zero
-def isZero : Nat → Bool := sorry
+-- Use `fun n => ...` to check if a number is zero
+def isZero : Nat → Bool := fun n => sorry
 
 -- Don't change below this line!
 #guard doubler 5 == 10

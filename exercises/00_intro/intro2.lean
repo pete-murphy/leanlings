@@ -11,3 +11,6 @@
 -/
 
 def favoriteNumber : Nat := "seven"
+
+-- Don't change below this line!
+#guard favoriteNumber > 0

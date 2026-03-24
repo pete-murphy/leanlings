@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Cache .lake
+        uses: actions/cache@v4
+        with:
+          path: .lake
+          key: lake-${{ hashFiles('lean-toolchain', 'lakefile.lean', 'lake-manifest.json') }}
+
+      - name: Build
+        run: lake build
+
+      - name: Verify all solutions
+        run: |
+          failed=0
+          for f in .solutions/**/*.lean; do
+            if ! lean "$f" 2>&1; then
+              echo "FAIL: $f"
+              failed=$((failed + 1))
+            fi
+          done
+          if [ $failed -gt 0 ]; then
+            echo "$failed solution(s) failed"
+            exit 1
+          fi
+          echo "All solutions verified"

@@ -10,7 +10,9 @@
     let c : Config := {}              -- all defaults
     let c : Config := { width := 120 } -- override one
 
-  `deriving Repr` after the fields lets you print with `#eval`.
+  `deriving Repr` lets you print with `#eval`.
+  `deriving BEq` lets you compare with `==`.
+  (You'll learn to write your own instances later.)
 
   TODO: Create RGBColor instances using defaults.
 -/
