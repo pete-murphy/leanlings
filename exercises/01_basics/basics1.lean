@@ -12,9 +12,9 @@
         that gives the right value.
 -/
 
-def product : Nat := sorry
+def product : Nat := 21 * 2
 
-def power : Nat := sorry
+def power : Nat := 2 ^ 10
 
 -- Don't change below this line!
 #guard product == 42

@@ -8,11 +8,11 @@
   TODO: Replace each `sorry` with a value of the correct type.
 -/
 
-def myNat : Nat := sorry
+def myNat : Nat := 2
 
-def myString : String := sorry
+def myString : String := "Hello"
 
-def myBool : Bool := sorry
+def myBool : Bool := true
 
 -- Don't change below this line!
 #guard myString.length > 0

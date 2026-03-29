@@ -8,7 +8,7 @@
   TODO: Implement `triple` so it returns three times its input.
 -/
 
-def triple (n : Nat) : Nat := sorry
+def triple (n : Nat) : Nat := n + n + n
 
 -- Don't change below this line!
 #guard triple 0 == 0

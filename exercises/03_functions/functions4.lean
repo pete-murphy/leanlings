@@ -16,13 +16,13 @@
 -/
 
 -- Double every element: [1, 2, 3] → [2, 4, 6]
-def doubled : List Nat := [1, 2, 3].map sorry
+def doubled : List Nat := [1, 2, 3].map (· * 2)
 
 -- Keep only even numbers: [1, 2, 3, 4, 5, 6] → [2, 4, 6]
-def evens : List Nat := [1, 2, 3, 4, 5, 6].filter sorry
+def evens : List Nat := [1, 2, 3, 4, 5, 6].filter (fun n => n % 2 == 0)
 
 -- Sum all elements using foldl
-def total : Nat := [10, 20, 30].foldl sorry sorry
+def total : Nat := [10, 20, 30].foldl (· + ·) 0
 
 -- Don't change below this line!
 #guard doubled == [2, 4, 6]

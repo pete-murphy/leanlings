@@ -10,7 +10,7 @@
         (Keep the type annotation as `Nat`.)
 -/
 
-def favoriteNumber : Nat := "seven"
+def favoriteNumber : Nat := 1
 
 -- Don't change below this line!
 #guard favoriteNumber > 0
