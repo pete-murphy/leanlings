@@ -11,10 +11,13 @@
 -/
 
 -- To prove A ∧ B, prove both A and B
-theorem and_example : 1 + 1 = 2 ∧ 2 + 2 = 4 := sorry
+theorem and_example : 1 + 1 = 2 ∧ 2 + 2 = 4 :=
+  And.intro (by omega) (by omega)
 
 -- To prove A ∨ B, prove either A or B
-theorem or_example : 1 + 1 = 2 ∨ 1 + 1 = 3 := sorry
+theorem or_example : 1 + 1 = 2 ∨ 1 + 1 = 3 :=
+  Or.inl (by omega)
 
 -- You can use And.intro and Or.inl/Or.inr explicitly
-theorem and_or : (True ∧ True) ∨ False := sorry
+theorem and_or : (True ∧ True) ∨ False :=
+  Or.inl (And.intro True.intro True.intro)

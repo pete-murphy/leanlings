@@ -17,12 +17,12 @@
 
 -- Implication: if we know P, we can prove P
 theorem identity (P : Prop) : P → P :=
-  sorry
+  fun p => p
 
 -- If we know P and P → Q, we can prove Q
 theorem modus_ponens (P Q : Prop) : P → (P → Q) → Q :=
-  sorry
+  fun p f => f p
 
 -- From a contradiction (P and ¬P), we can prove anything
 theorem contradiction (P Q : Prop) : P → ¬P → Q :=
-  sorry
+  fun p notp => nomatch And.intro p notp

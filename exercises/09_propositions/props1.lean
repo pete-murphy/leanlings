@@ -19,14 +19,17 @@
 -/
 
 -- True is trivially true
-theorem obvious : True := sorry
+theorem obvious : True := True.intro
 
 -- 1 + 1 is definitionally equal to 2
-theorem one_plus_one : 1 + 1 = 2 := sorry
+theorem one_plus_one : 1 + 1 = 2 :=
+  by omega
 
 -- String concatenation is definitionally computed
-theorem hello_lean : "Hello, " ++ "Lean!" = "Hello, Lean!" := sorry
+theorem hello_lean : "Hello, " ++ "Lean!" = "Hello, Lean!" :=
+  by simp
 
 -- From False, anything follows (explosion / ex falso)
 -- Hint: use `nomatch h` or `h.elim`
-theorem false_implies_anything (h : False) : 2 + 2 = 5 := sorry
+theorem false_implies_anything (h : False) : 2 + 2 = 5 :=
+  by nomatch h
