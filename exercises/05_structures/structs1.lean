@@ -24,4 +24,5 @@ structure Person where
   deriving Repr
 
 -- TODO: Replace sorry with a Person value
-def alice : Person := sorry
+def alice : Person :=
+  { name := "Alice", age := 30 }

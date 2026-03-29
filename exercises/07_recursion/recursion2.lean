@@ -12,7 +12,9 @@
         sum [1, 2, 3] = 6
 -/
 
-def sum : List Nat → Nat := sorry
+def sum : List Nat → Nat
+  | [] => 0
+  | n :: t => n + sum t
 
 -- Don't change below this line!
 #guard sum [] == 0

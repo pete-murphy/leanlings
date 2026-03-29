@@ -26,7 +26,12 @@ inductive Direction where
   deriving Repr, BEq
 
 open Direction in
-def opposite (d : Direction) : Direction := sorry
+def opposite (d : Direction) : Direction :=
+  match d with
+  | north => south
+  | south => north
+  | east => west
+  | west => east
 
 -- Don't change below this line!
 open Direction in

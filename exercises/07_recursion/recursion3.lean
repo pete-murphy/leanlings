@@ -17,7 +17,11 @@
 -/
 
 def reverse (l : List α) : List α :=
-  sorry
+  go l []
+where
+  go : List α -> List α -> List α
+    | [], acc => acc
+    | h :: t, acc => go t (h :: acc)
 
 -- Don't change below this line!
 #guard reverse [1, 2, 3] == [3, 2, 1]
