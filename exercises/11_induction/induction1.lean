@@ -24,8 +24,10 @@ def myAdd : Nat → Nat → Nat
 
 -- This is true by definition — `rfl` suffices
 theorem myAdd_zero (n : Nat) : myAdd n 0 = n := by
-  sorry
+  rfl
 
 -- This requires induction on `n`
 theorem myAdd_zero_left (n : Nat) : myAdd 0 n = n := by
-  sorry
+  induction n with
+  | zero => exact (myAdd_zero 0)
+  | succ _ ih => simp [myAdd]; omega

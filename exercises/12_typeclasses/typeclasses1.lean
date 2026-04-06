@@ -28,4 +28,7 @@ inductive Color where
 
 -- TODO: Implement ToString for Color
 instance : ToString Color where
-  toString := sorry
+  toString := fun
+    | Color.red => "red"
+    | Color.green => "green"
+    | Color.blue => "blue"

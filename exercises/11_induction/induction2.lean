@@ -20,4 +20,6 @@ def myLength : List α → Nat
 -- In the `cons` case, try `simp [myLength, ih, Nat.add_assoc]`.
 theorem myLength_append (l1 l2 : List α) :
     myLength (l1 ++ l2) = myLength l1 + myLength l2 := by
-  sorry
+  induction l1 with
+  | nil => simp [myLength]
+  | cons _ _ ih => simp [myLength, ih, Nat.add_assoc]

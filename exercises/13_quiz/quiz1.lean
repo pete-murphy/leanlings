@@ -34,55 +34,73 @@ structure Book where
 
 -- 1. Implement BEq for Genre.
 instance : BEq Genre where
-  beq := sorry
+  beq := fun
+    | Genre.science, Genre.science => true
+    | Genre.history, Genre.history => true
+    | Genre.fantasy, Genre.fantasy => true
+    | _, _ => false
 
 -- 2. Implement ToString for Rating:
 --    stars 5 => "5 stars", stars 1 => "1 star", unrated => "unrated"
 instance : ToString Rating where
-  toString := sorry
+  toString := fun
+    | Rating.stars 1 => toString 1 ++ " star"
+    | Rating.stars n => toString n ++ " stars"
+    | Rating.unrated => "unrated"
 
 -- =============================================
 -- Part 2: Functions (Units 2, 3, 4)
 -- =============================================
 
 -- 3. Return the genre name as a String.
-def Genre.name : Genre → String := sorry
+def Genre.name : Genre → String := fun
+  | Genre.science => "science"
+  | Genre.history => "history"
+  | Genre.fantasy => "fantasy"
 
 -- 4. Extract the star count from a Rating (0 if unrated).
-def Rating.toNat : Rating → Nat := sorry
+def Rating.toNat : Rating → Nat := fun
+  | Rating.stars n => n
+  | _ => 0
 
 -- 5. Is a book "long"? (more than 300 pages)
-def Book.isLong (b : Book) : Bool := sorry
+def Book.isLong (b : Book) : Bool := b.pages > 300
 
 -- 6. Is a book worth reading? A book is worth reading
 --    if it has more than 3 stars, or is a long science book.
-def Book.isWorthReading (b : Book) : Bool := sorry
+def Book.isWorthReading (b : Book) : Bool := Rating.toNat b.rating > 3 || (Book.isLong b && b.genre == Genre.science)
 
 -- 7. Describe a book: "<title> by <author> (<pages> pages, <genre>)"
-def Book.describe (b : Book) : String := sorry
+def Book.describe (b : Book) : String := s!"{b.title} by {b.author} ({b.pages} pages, {Genre.name b.genre})"
 
 -- 8. Return a copy of the book with a new rating.
-def Book.withRating (b : Book) (r : Rating) : Book := sorry
+def Book.withRating (b : Book) (r : Rating) : Book := { b with rating := r }
 
 -- 9. Find a book by title. Return none if not found.
-def findBook (title : String) : List Book → Option Book := sorry
+def findBook (title : String) : List Book → Option Book :=
+  fun books => books.find? fun b => b.title == title
 
 -- =============================================
 -- Part 3: Higher-Order & Recursive (Units 3, 7)
 -- =============================================
 
 -- 10. Keep only books of a given genre.
-def booksOfGenre (g : Genre) (books : List Book) : List Book := sorry
+def booksOfGenre (g : Genre) (books : List Book) : List Book :=
+  books.filter fun b => b.genre == g
 
 -- 11. Extract all book titles from a catalog.
-def titles (books : List Book) : List String := sorry
+def titles (books : List Book) : List String :=
+  books.map fun b => b.title
 
 -- 12. Compute the total page count for a catalog.
-def totalPages (books : List Book) : Nat := sorry
+def totalPages (books : List Book) : Nat :=
+  books.foldr (fun b acc => acc + b.pages) 0
 
 -- 13. Render a star rating as a string of stars.
 --     starBar (.stars 3) = "***", starBar .unrated = ""
-def starBar : Rating → String := sorry
+def starBar : Rating → String := fun
+  | Rating.stars n => String.join (List.replicate n "*")
+  | _ => ""
 
 -- =============================================
 -- Part 4: Proofs (Units 8, 9, 10, 11)
@@ -91,26 +109,31 @@ def starBar : Rating → String := sorry
 -- 14. A book with 0 pages is not long.
 theorem zero_not_long (b : Book) (h : b.pages = 0) :
     b.isLong = false := by
-  sorry
+  simp [Book.isLong, h]
 
 -- 15. withRating gives back the rating it was given.
 theorem withRating_rating (b : Book) (r : Rating) :
     (b.withRating r).rating = r := by
-  sorry
+  simp [Book.withRating]
 
 -- 16. An unrated book has a star count of 0.
 theorem unrated_zero_stars (b : Book) (h : b.rating = .unrated) :
     b.rating.toNat = 0 := by
-  sorry
+  simp [Rating.toNat, h]
 
 -- 17. Science and history are different genres.
 theorem science_ne_history : Genre.science ≠ Genre.history := by
-  sorry
+  simp
 
 -- 18. Every genre is science, history, or fantasy.
 theorem genre_cases (g : Genre) :
     g = .science ∨ g = .history ∨ g = .fantasy := by
-  sorry
+  -- let h := ¬(g = .science ∨ g = .history ∨ g = .fantasy)
+  -- nomatch h
+  induction g with
+  | science => simp
+  | history => simp
+  | fantasy => simp
 
 -- For the induction proofs below:
 def pageCount : List Book → Nat
@@ -124,12 +147,16 @@ def bookTitles : List Book → List String
 -- 19. pageCount distributes over append.
 theorem pageCount_append (l1 l2 : List Book) :
     pageCount (l1 ++ l2) = pageCount l1 + pageCount l2 := by
-  sorry
+  induction l1 with
+  | nil => simp [pageCount]
+  | cons _ _ ih => simp [pageCount, ih, Nat.add_assoc]
 
 -- 20. bookTitles distributes over append.
 theorem bookTitles_append (l1 l2 : List Book) :
     bookTitles (l1 ++ l2) = bookTitles l1 ++ bookTitles l2 := by
-  sorry
+  induction l1 with
+  | nil => simp [bookTitles]
+  | cons _ _ ih => simp [bookTitles, ih]
 
 -- =============================================
 -- Don't change below this line!
