@@ -19,7 +19,9 @@
 
 -- Print numbers from n down to 1, each on its own line
 -- Use a for loop with List.range
-def printCountdown (n : Nat) : IO Unit := sorry
+def printCountdown (n : Nat) : IO Unit := do
+  for n in List.range n do
+    IO.println n
 
 def main : IO Unit := do
   printCountdown 5

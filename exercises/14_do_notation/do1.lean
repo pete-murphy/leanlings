@@ -26,11 +26,13 @@ def safeDivide (a b : Nat) : Option Nat :=
 
 -- Compute 100 / 5 / 4 using do notation (should be some 5)
 def chainedDivide : Option Nat := do
-  sorry
+  let a <- safeDivide 100 5
+  safeDivide a 4
 
 -- This should return none (division by zero in the chain)
 def failingDivide : Option Nat := do
-  sorry
+  let x <- safeDivide 100 0
+  return x
 
 -- Don't change below this line!
 #guard chainedDivide == some 5

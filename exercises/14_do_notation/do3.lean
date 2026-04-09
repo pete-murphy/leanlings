@@ -16,11 +16,17 @@
 
 -- Count how many elements satisfy a predicate
 def countWhere (p : Nat → Bool) (l : List Nat) : Nat := Id.run do
-  sorry
+  let mut total := 0
+  for x in l do
+    if p x then total := total + 1
+  return total
 
 -- Find the maximum element (return 0 for empty list)
 def listMax (l : List Nat) : Nat := Id.run do
-  sorry
+  let mut max := 0
+  for x in l do
+    if x > max then max := x
+  return max
 
 -- Don't change below this line!
 #guard countWhere (· > 3) [1, 2, 3, 4, 5] == 2
