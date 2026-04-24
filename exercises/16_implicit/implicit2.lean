@@ -18,10 +18,12 @@
 -/
 
 -- Check if a list contains an element (needs BEq)
-def myContains [BEq α] (x : α) (l : List α) : Bool := sorry
+def myContains [BEq α] (x : α) (l : List α) : Bool :=
+  l.any (· == x)
 
 -- Remove duplicates from a list (needs BEq)
-def myDedup [BEq α] (l : List α) : List α := sorry
+def myDedup [BEq α] (l : List α) : List α :=
+  l.foldr (fun x acc => if acc.any (· == x) then acc else x :: acc) []
 
 -- Don't change below this line!
 #guard myContains 3 [1, 2, 3] == true
