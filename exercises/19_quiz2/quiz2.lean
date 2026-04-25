@@ -13,17 +13,22 @@ def safeDivide (a b : Nat) : Option Nat :=
 -- 1. Use do notation to chain two safe divisions:
 --    divide a by b, then divide the result by c.
 def safeDivTwice (a b c : Nat) : Option Nat := do
-  sorry
+  let x <- safeDivide a b
+  let y <- safeDivide x c
+  return y
 
 -- 2. Use Id.run do with a mutable variable and for loop.
 --    Compute 1² + 2² + ... + n²
 def sumOfSquares (n : Nat) : Nat := Id.run do
-  sorry
+  let mut res := 0
+  for i in List.range n do
+    res := res + (i+1) ^ 2
+  return res
 
 -- 3. Polymorphic function: count how many times `target`
 --    appears in the list. Needs [BEq α] constraint.
 def countOccurrences [BEq α] (target : α) (l : List α) : Nat :=
-  sorry
+  l.foldr (fun x acc => if x == target then acc + 1 else acc) 0
 
 -- Don't change below this line!
 #guard safeDivTwice 100 5 4 == some 5

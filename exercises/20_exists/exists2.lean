@@ -10,8 +10,10 @@
 
 -- If there exists an even number in some property, we can extract it
 theorem exists_imp' (h : ∃ n : Nat, n + n = 10) : ∃ m : Nat, m = 5 := by
-  sorry
+  let ⟨w, hw⟩ := h
+  simp
 
 -- Existentials compose
 theorem exists_add (h : ∃ n : Nat, n > 0) : ∃ m : Nat, m > 1 := by
-  sorry
+  let ⟨w, hw⟩ := h
+  exact ⟨w + 1, by omega⟩

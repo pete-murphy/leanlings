@@ -26,7 +26,7 @@ theorem and_intro (P Q : Prop) (hp : P) (hq : Q) : P ∧ Q := by
 theorem and_swap (P Q : Prop) (h : P ∧ Q) : Q ∧ P := by
   constructor
   apply h.2
-  exact h.1
+  apply h.1
 
 -- theorem and_swap_2 (P Q R : Prop) (h : P ∧ Q) (f : Q ∧ P → R) : R := by
 --   apply f

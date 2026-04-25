@@ -21,8 +21,10 @@
 
 -- A number is either zero or positive
 theorem zero_or_pos (n : Nat) : n = 0 ∨ n > 0 := by
-  sorry
+  cases n with
+  | zero => omega
+  | succ m => omega
 
 -- Boolean and is commutative
 theorem bool_and_comm (a b : Bool) : (a && b) = (b && a) := by
-  sorry
+  cases (a, b) <;> decide +revert -- TODO: arrived at this by guessing

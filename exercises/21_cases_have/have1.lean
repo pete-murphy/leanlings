@@ -17,8 +17,11 @@
 
 -- Chain implications using intermediate steps
 theorem chain (P Q R : Prop) (hpq : P → Q) (hqr : Q → R) (hp : P) : R := by
-  sorry
+  have hq : Q := hpq hp
+  have hr : R := hqr hq
+  exact hr
 
 -- Use have to establish an intermediate fact
 theorem double_neg_intro (P : Prop) (hp : P) : ¬¬P := by
-  sorry
+  intro hn
+  nomatch hn hp

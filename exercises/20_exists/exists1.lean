@@ -23,10 +23,13 @@
 -/
 
 -- There exists a natural number greater than 5
-theorem exists_gt_five : ∃ n : Nat, n > 5 := sorry
+theorem exists_gt_five : ∃ n : Nat, n > 5 := by
+  exact ⟨5 + 1, by simp⟩
 
 -- There exists a natural number whose double is 10
-theorem exists_double : ∃ n : Nat, n + n = 10 := sorry
+theorem exists_double : ∃ n : Nat, n + n = 10 := by
+  exact ⟨5, by omega⟩
 
 -- For any n, there exists a number greater than n
-theorem exists_greater (n : Nat) : ∃ m : Nat, m > n := sorry
+theorem exists_greater (n : Nat) : ∃ m : Nat, m > n := by
+  exact ⟨n + 1, by simp⟩

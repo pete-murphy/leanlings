@@ -20,12 +20,19 @@
 
 -- And is commutative
 theorem and_comm' (P Q : Prop) (h : P ∧ Q) : Q ∧ P := by
-  sorry
+  cases h with
+  | intro p q => exact And.intro q p
 
 -- Or is commutative
 theorem or_comm' (P Q : Prop) (h : P ∨ Q) : Q ∨ P := by
-  sorry
+  cases h with
+  | inl p => exact Or.inr p
+  | inr q => exact Or.inl q
 
 -- And distributes over Or (left)
 theorem and_or_left' (P Q R : Prop) (h : P ∧ (Q ∨ R)) : (P ∧ Q) ∨ (P ∧ R) := by
-  sorry
+  cases h with
+  | intro p qr =>
+    cases qr with
+    | inl q => exact Or.inl ⟨p, q⟩
+    | inr r => exact Or.inr ⟨p, r⟩
