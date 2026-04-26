@@ -13,12 +13,17 @@
 
 -- Every proposition is either true or false
 theorem em_example (P : Prop) : P ∨ ¬P :=
-  sorry
+  Classical.em P
 
 -- Double negation elimination (needs classical logic)
 theorem dne (P : Prop) (h : ¬¬P) : P := by
-  sorry
+  let f := fun (hnp : ¬P) => by exact h hnp
+  exact Classical.byContradiction f
 
 -- Proof by contradiction
 theorem by_contradiction_example (P Q : Prop) (h : ¬P → Q) (hnq : ¬Q) : P := by
-  sorry
+  let f : ¬P → False := fun (hnp : ¬P) => by
+    have hq : Q := by apply h hnp
+    let x := And.intro hq hnq
+    nomatch x
+  exact Classical.byContradiction f

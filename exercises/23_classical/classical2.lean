@@ -16,12 +16,25 @@
 
 -- Constructive direction (doesn't need classical logic)
 theorem contrapositive (P Q : Prop) (h : P → Q) : ¬Q → ¬P := by
-  sorry
+  intro hnq
+  intro hp
+  let hq := by apply h hp
+  nomatch And.intro hq hnq
 
 -- Classical direction (needs excluded middle)
 theorem contrapositive_reverse (P Q : Prop) (h : ¬Q → ¬P) : P → Q := by
-  sorry
+  intro hp
+  cases Classical.em Q with
+  | inl hq => exact hq
+  | inr hnq =>
+    let hnp : ¬P := by apply h hnq
+    nomatch And.intro hnp hp
 
 -- Apply contrapositive reasoning
 theorem not_or_of_imp (P Q : Prop) (h : P → Q) : ¬P ∨ Q := by
-  sorry
+  cases Classical.em P with
+  | inl hp =>
+    let hq := by apply h hp
+    exact Or.inr hq
+  | inr hnp =>
+    exact Or.inl hnp

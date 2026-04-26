@@ -25,8 +25,24 @@ def sumTo : Nat → Nat
 -- Gauss's formula: sumTo n = n * (n + 1) / 2
 -- Since we're using Nat (no fractions), prove the doubled version:
 theorem sumTo_formula (n : Nat) : 2 * sumTo n = n * (n + 1) := by
-  sorry
+  induction n with
+  | zero => simp [sumTo]
+  | succ _ ih =>
+    -- TODO: this is so messy lol
+    rw [sumTo]
+    rw [Nat.mul_add]
+    rw [ih]
+    rw [Nat.mul_comm, Nat.add_mul, Nat.add_mul]
+    simp
+    rw [Nat.two_mul, Nat.add_add_add_comm, Nat.mul_add]
+    simp
+    rw [Nat.mul_add]
+    omega
 
 -- Sum is monotone
 theorem sumTo_mono (n : Nat) : sumTo n ≤ sumTo (n + 1) := by
-  sorry
+  induction n with
+  | zero => simp [sumTo]
+  | succ _ ih =>
+    rw [sumTo, sumTo]
+    omega
