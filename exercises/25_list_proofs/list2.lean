@@ -14,12 +14,26 @@
 -- Mapping preserves length
 theorem map_length (f : α → β) (l : List α) :
     (l.map f).length = l.length := by
-  sorry
+  induction l with
+  | nil =>
+    rw [List.map, List.length]
+    rfl
+  | cons _ _ ih =>
+    rw [List.length_cons]
+    rw [List.map_cons]
+    rw [List.length_cons, ih]
 
 -- Mapping id does nothing
 theorem map_id' (l : List α) : l.map id = l := by
-  sorry
+  induction l with
+  | nil => simp [List.map]
+  | cons _ _ ih =>
+    -- TODO: do this the hard way
+    simp [id]
 
 -- Reverse preserves length
 theorem reverse_length (l : List α) : l.reverse.length = l.length := by
-  sorry
+  induction l with
+  | nil => simp [List.length]
+    -- TODO: do this the hard way
+  | cons _ _ ih => simp

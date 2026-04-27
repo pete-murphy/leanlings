@@ -13,12 +13,12 @@
 
 -- Appending nil on the right is identity
 theorem append_nil' (l : List α) : l ++ [] = l := by
-  sorry
+  rw [List.append_nil]
 
 -- Append is associative
 theorem append_assoc' (a b c : List α) : (a ++ b) ++ c = a ++ (b ++ c) := by
-  sorry
+  simp
 
 -- Length of append
 theorem length_append' (a b : List α) : (a ++ b).length = a.length + b.length := by
-  sorry
+  simp
